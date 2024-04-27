@@ -8,7 +8,6 @@ from cv_bridge import CvBridge
 import airsim
 import cv2
 import numpy as np
-import base64
 
 CLAHE_ENABLED = False  # when enabled, RGB image is enhanced using CLAHE
 
