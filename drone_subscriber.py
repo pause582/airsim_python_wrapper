@@ -1,9 +1,6 @@
 import rospy
-from sensor_msgs.msg import Image,CameraInfo
-from tf2_msgs.msg import TFMessage
 from tf.transformations import euler_from_quaternion
 from geometry_msgs.msg import Twist, Point, PoseWithCovarianceStamped, PoseStamped
-from std_srvs.srv import SetBool
 
 import airsim
 import math
@@ -120,19 +117,6 @@ class AirsimSubscriber:
 
         sub.vel_cmd_body_frame_cb(cmd)
 
-    def takeoff_cb(self,a):
-        client.takeoffAsync()
-        return [True, 'takeoff']
-
-    def land_cb(self,a):
-        client.landAsync()
-        return [True, 'land']
-    
-    '''
-    def moveTo(self, x:PoseStamped):
-        client.moveToPositionAsync(x=p.x, y=p.y, z=p.z, velocity=v)
-    '''
-
 if __name__ == "__main__":
     print("python_subscriber")
     sub = AirsimSubscriber()
@@ -148,11 +132,6 @@ if __name__ == "__main__":
     subscriber_cmd = rospy.Subscriber('/cmd_vel', Twist, sub.vel_cmd_body_frame_cb)
     subscriber_flyTo = rospy.Subscriber('/fly_to_cmd', PoseStamped, sub.flyTo_cb)
     publisher_pose = rospy.Publisher('/pose', PoseStamped, queue_size=1)
-
-    #service_takeoff = rospy.Service('/takeoff', SetBool, sub.takeoff_cb)
-    #service_land = rospy.Service('/land', SetBool , sub.land_cb)
-    #service_moveTo = rospy.Service('/droneMoveTo', PoseStamped, sub.moveTo)
-
     
     subscriber_pose = rospy.Subscriber('/rtabmap/localization_pose', PoseWithCovarianceStamped, sub.pose_cb)
     
