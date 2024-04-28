@@ -37,10 +37,8 @@ Subscribe to the following topics and send command to airsim.
 
 And it can translate message with type PoseWithCovarianceStamped published by rtabmap to PoseStamped, by ignoring covariance data.
 
-:::warning
 The pose data is used to navigate the drone.
 If there is no pose data provided, it cannot navigate.
-:::
 
 
 ## How to use
